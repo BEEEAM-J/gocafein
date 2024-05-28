@@ -9,6 +9,8 @@ object Versions {
     const val ACTIVITY_COMPOSE = "1.9.0"
     const val COMPOSE_BOM = "2023.03.00"
     const val COMPOSE_MATERIAL = "1.2.1"
+    const val NAVIGATION_COMPOSE = "2.7.6"
+    const val HILT_NAVIGATION = "1.0.0"
 
     const val FRAGMENT_KTX = "1.5.5"
     const val LIFECYCLE_VIEWMODEL_KTX = "2.5.1"
