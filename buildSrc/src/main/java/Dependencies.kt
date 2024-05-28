@@ -46,7 +46,7 @@ object KotlinX {
 }
 
 object Glide {
-    const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
+    const val GLIDE = "com.github.bumptech.glide:compose:${Versions.GLIDE}-alpha.5"
 }
 
 object Orbit {

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -15,8 +16,6 @@ import com.beeeam.search.component.MovieItem
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
-val itemList = listOf(SampleData(), SampleData(), SampleData())
-
 @Composable
 fun SearchRoute(
     viewModel: SearchViewModel = hiltViewModel(),
@@ -25,6 +24,11 @@ fun SearchRoute(
     viewModel.collectSideEffect { sideEffect ->
 
     }
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.loadInitData()
+    }
+
     SearchScreen(
         uiState = uiState,
         onSearchFieldChanged = viewModel::updateSearchValue
@@ -46,12 +50,11 @@ fun SearchScreen(
             onValueChanged = onSearchFieldChanged,
         )
         LazyColumn {
-            items(items = itemList) { content ->
+            items(items = uiState.movieList) { content ->
                 MovieItem(
-                    posterImage = content.posterImage,
-                    title = content.title,
-                    openDate = content.openDate,
-                    rate = content.rate,
+                    posterImage = content.Poster,
+                    title = content.Title,
+                    openDate = content.Year,
                 )
             }
         }
