@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("kotlin-android")
     id("dagger.hilt.android.plugin")
 
@@ -8,20 +8,14 @@ plugins {
 }
 
 android {
-    namespace = "com.beeeam.gocafein"
+    namespace = "com.beeeam.data"
     compileSdk = Configuration.COMPILE_SDK
 
     defaultConfig {
-//        applicationId = "com.beeeam.gocafein"
         minSdk = Configuration.MIN_SDK
-        targetSdk = Configuration.TARGET_SDK
-//        versionCode = Configuration.VERSION_CODE
-//        versionName = Configuration.VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -43,12 +37,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":data"))
     implementation(project(":domain"))
-    implementation(project(":presentation:navigator"))
-
+    implementation(AndroidX.APP_COMPAT)
     implementation(AndroidX.CORE_KTX)
-    implementation(AndroidX.LIFECYCLE_RUNTIME)
+    implementation(Google.MATERIAL)
     testImplementation(AndroidX.JUNIT)
     androidTestImplementation(AndroidX.EXT_JUNIT)
     androidTestImplementation(AndroidX.ESPRESSO_CORE)
@@ -61,4 +53,6 @@ dependencies {
     implementation(SquareUp.OKHTTP3)
     implementation(SquareUp.OKHTTP3_LOGGING)
     implementation(SquareUp.OKHTTP3_BOM)
+
+    implementation(KotlinX.KOTLINX_COROUTINE)
 }

@@ -14,4 +14,10 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "gocafein"
+include(":data")
+include(":domain")
+include(":presentation")
+include(":presentation:search")
+include(":presentation:detail")
+include(":presentation:navigator")
 include(":app")
