@@ -55,6 +55,8 @@ dependencies {
     implementation(AndroidX.COMPOSE_UI_GRAPHICS)
     implementation(AndroidX.COMPOSE_PREVIEW)
     implementation(AndroidX.COMPOSE_MATERIAL)
+    implementation(AndroidX.NAVIGATION_COMPOSE)
+    implementation(AndroidX.HILT_NAVIGATION)
 
     testImplementation(AndroidX.JUNIT)
     androidTestImplementation(AndroidX.EXT_JUNIT)

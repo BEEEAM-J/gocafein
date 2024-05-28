@@ -13,6 +13,8 @@ object AndroidX {
     const val COMPOSE_UI_JUNIT = "androidx.compose.ui:ui-test-junit4"
     const val COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling"
     const val COMPOSE_UI_TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest"
+    const val NAVIGATION_COMPOSE = "androidx.navigation:navigation-compose:${Versions.NAVIGATION_COMPOSE}"
+    const val HILT_NAVIGATION = "androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAVIGATION}"
 
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT_KTX}"
     const val LIFECYCLE_VIEWMODEL_KTX =
@@ -44,7 +46,7 @@ object KotlinX {
 }
 
 object Glide {
-    const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
+    const val GLIDE = "com.github.bumptech.glide:compose:${Versions.GLIDE}-alpha.5"
 }
 
 object Orbit {
