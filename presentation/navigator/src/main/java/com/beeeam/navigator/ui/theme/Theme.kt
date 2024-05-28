@@ -1,4 +1,4 @@
-package com.beeeam.gocafein.ui.theme
+package com.beeeam.navigator.ui.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,17 +1,20 @@
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("kotlin-android")
+    id("dagger.hilt.android.plugin")
+
+    kotlin("android")
+    kotlin("kapt")
 }
 
 android {
     namespace = "com.beeeam.detail"
-    compileSdk = 33
+    compileSdk = Configuration.COMPILE_SDK
 
     defaultConfig {
-        minSdk = 24
+        minSdk = Configuration.MIN_SDK
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -30,14 +33,43 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0"
+    }
 }
 
 dependencies {
+    implementation(project(":domain"))
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.12.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(AndroidX.APP_COMPAT)
+    implementation(AndroidX.CORE_KTX)
+    implementation(AndroidX.LIFECYCLE_RUNTIME)
+
+    implementation(AndroidX.ACTIVITY_COMPOSE)
+    implementation(AndroidX.COMPOSE_BOM)
+    implementation(AndroidX.COMPOSE_UI)
+    implementation(AndroidX.COMPOSE_UI_GRAPHICS)
+    implementation(AndroidX.COMPOSE_PREVIEW)
+    implementation(AndroidX.COMPOSE_MATERIAL)
+
+    testImplementation(AndroidX.JUNIT)
+    androidTestImplementation(AndroidX.EXT_JUNIT)
+    androidTestImplementation(AndroidX.ESPRESSO_CORE)
+
+    androidTestImplementation(platform(AndroidX.COMPOSE_BOM))
+    androidTestImplementation(AndroidX.COMPOSE_UI_JUNIT)
+    debugImplementation(AndroidX.COMPOSE_UI_TOOLING)
+    debugImplementation(AndroidX.COMPOSE_UI_TEST_MANIFEST)
+
+    implementation(Google.HILT_ANDROID)
+    kapt(Google.HILT_ANDROID_COMPILER)
+
+    implementation(Google.MATERIAL)
+
+    implementation(KotlinX.KOTLINX_COROUTINE)
+
+    implementation(Glide.GLIDE)
 }

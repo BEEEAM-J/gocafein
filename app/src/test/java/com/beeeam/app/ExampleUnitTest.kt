@@ -1,4 +1,4 @@
-package com.beeeam.gocafein
+package com.beeeam.app
 
 import org.junit.Test
 
