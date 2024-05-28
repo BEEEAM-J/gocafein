@@ -46,3 +46,8 @@ object KotlinX {
 object Glide {
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
 }
+
+object Orbit {
+    const val ORBIT_VIEWMODEL = "org.orbit-mvi:orbit-viewmodel:${Versions.ORBIT}"
+    const val ORBIT_COMPOSE ="org.orbit-mvi:orbit-compose:${Versions.ORBIT}"
+}

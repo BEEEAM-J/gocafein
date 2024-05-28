@@ -68,8 +68,11 @@ dependencies {
     kapt(Google.HILT_ANDROID_COMPILER)
 
     implementation(Google.MATERIAL)
+    implementation(Glide.GLIDE)
 
     implementation(KotlinX.KOTLINX_COROUTINE)
 
-    implementation(Glide.GLIDE)
+    implementation(Orbit.ORBIT_VIEWMODEL)
+    implementation(Orbit.ORBIT_COMPOSE)
+
 }

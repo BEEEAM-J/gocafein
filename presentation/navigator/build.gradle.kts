@@ -69,4 +69,7 @@ dependencies {
     kapt(Google.HILT_ANDROID_COMPILER)
 
     implementation(Google.MATERIAL)
+
+    implementation(Orbit.ORBIT_VIEWMODEL)
+    implementation(Orbit.ORBIT_COMPOSE)
 }

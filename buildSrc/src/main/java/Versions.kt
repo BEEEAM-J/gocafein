@@ -26,4 +26,6 @@ object Versions {
     const val KOTLINX_COROUTINE = "1.3.9"
 
     const val GLIDE = "4.15.1"
+
+    const val ORBIT = "6.1.0"
 }
