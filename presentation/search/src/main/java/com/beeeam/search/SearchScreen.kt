@@ -37,6 +37,7 @@ fun SearchRoute(
         keyboardController = keyboardController,
         onSearchFieldChanged = viewModel::updateSearchValue,
         onEnterClicked = viewModel::loadMovieList,
+        /*onClickMovieItem =*/
     )
 }
 
@@ -46,6 +47,7 @@ fun SearchScreen(
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
     onSearchFieldChanged: (String) -> Unit = {},
     onEnterClicked: (String) -> Unit = {},
+    onClickMovieItem: (String) -> Unit = {},
 ) {
     Column (
         modifier = Modifier
@@ -64,6 +66,8 @@ fun SearchScreen(
                     posterImage = content.Poster,
                     title = content.Title,
                     openDate = content.Year,
+                    id = content.imdbID,
+                    onClick = onClickMovieItem,
                 )
             }
         }

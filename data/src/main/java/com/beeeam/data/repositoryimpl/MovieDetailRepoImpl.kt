@@ -2,23 +2,18 @@ package com.beeeam.data.repositoryimpl
 
 import com.beeeam.data.api.GocafeinApi
 import com.beeeam.domain.model.HttpError
-import com.beeeam.domain.model.SearchMovieResponse
-import com.beeeam.domain.repository.MovieListRepo
+import com.beeeam.domain.model.MovieDetailResponse
+import com.beeeam.domain.repository.MovieDetailRepo
 import javax.inject.Inject
 
-class MovieListRepoImpl @Inject constructor(
+class MovieDetailRepoImpl @Inject constructor(
     private val api: GocafeinApi
-): MovieListRepo {
-    override suspend fun getMovieList(
-        title: String,
-        page: Int)
-    : Result<SearchMovieResponse> {
+): MovieDetailRepo {
+    override suspend fun getMovieDetail(id: String): Result<MovieDetailResponse> {
         return try {
-            val response = api.getMovieList(
+            val response = api.getMovieDetail(
                 key = "954f1691",
-                s = title,
-                page = page,
-                type = "movie",
+                id = id,
             )
             when {
                 response.isSuccessful -> {
@@ -28,7 +23,8 @@ class MovieListRepoImpl @Inject constructor(
                     Result.failure(HttpError(response.code(), response.errorBody()?.string() ?: ""))
                 }
             }
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             Result.failure(e)
         }
     }

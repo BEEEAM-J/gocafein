@@ -1,6 +1,8 @@
 package com.beeeam.search
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.beeeam.domain.usecase.GetMovieDetailUseCase
 import com.beeeam.domain.usecase.GetMovieListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.Container
@@ -14,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val getMovieListUseCase: GetMovieListUseCase
+    private val getMovieListUseCase: GetMovieListUseCase,
 ) : ContainerHost<SearchState, SearchSideEffect>, ViewModel() {
     override val container: Container<SearchState, SearchSideEffect> = container(SearchState())
 

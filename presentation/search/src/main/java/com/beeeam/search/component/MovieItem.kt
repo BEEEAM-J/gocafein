@@ -1,5 +1,7 @@
 package com.beeeam.search.component
 
+import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,9 +18,13 @@ fun MovieItem(
     posterImage: String = "",
     title: String = "",
     openDate: String = "",
+    id: String = "",
+    onClick: (String) -> Unit = {},
 ) {
     Row (
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick(id) }
     ) {
         GlideImage(
             model = posterImage,
