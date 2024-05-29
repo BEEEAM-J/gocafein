@@ -1,13 +1,16 @@
 package com.beeeam.presentation.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,6 +43,7 @@ fun HomeRoute(
         keyboardController = keyboardController,
         onSearchFieldChanged = viewModel::updateSearchValue,
         onEnterClicked = viewModel::loadMovieList,
+        onClickClearBtn = { viewModel.updateSearchValue("") },
         onClickMovieItem = viewModel::navigateToDetail
     )
 }
@@ -50,20 +54,26 @@ fun HomeScreen(
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
     onSearchFieldChanged: (String) -> Unit = {},
     onEnterClicked: (String) -> Unit = {},
+    onClickClearBtn: () -> Unit = {},
     onClickMovieItem: (String) -> Unit = {},
 ) {
     Column (
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp)
+            .background(Color.Black)
+            .padding(18.dp)
     ) {
         GocafeinSearchBar(
             value = uiState.searchValue,
             keyboardController = keyboardController,
             onValueChanged = onSearchFieldChanged,
             onEnterClicked = onEnterClicked,
+            onClearBtnClicked = onClickClearBtn,
         )
-        LazyColumn {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier.padding(vertical = 24.dp),
+        ) {
             items(items = uiState.movieList) { content ->
                 MovieItem(
                     posterImage = content.Poster,
