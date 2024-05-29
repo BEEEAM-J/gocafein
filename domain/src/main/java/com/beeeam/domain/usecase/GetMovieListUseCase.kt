@@ -1,12 +1,12 @@
 package com.beeeam.domain.usecase
 
-import com.beeeam.domain.model.SearchMovieResponse
-import com.beeeam.domain.repository.MovieListRepo
+import com.beeeam.domain.model.MovieSearchResponse
+import com.beeeam.domain.repository.MovieSearchRepo
 
 class GetMovieListUseCase(
-    private val repo: MovieListRepo,
+    private val repo: MovieSearchRepo,
 ) {
-    suspend operator fun invoke(title: String, page: Int): Result<SearchMovieResponse> {
+    suspend operator fun invoke(title: String, page: Int): Result<MovieSearchResponse> {
         return repo.getMovieList(title, page)
     }
 }
