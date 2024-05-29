@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Gocafein"
         tools:targetApi="31">
         <activity
-            android:name="com.beeeam.navigator.MainActivity"
+            android:name="com.beeeam.presentation.navigator.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Gocafein">
