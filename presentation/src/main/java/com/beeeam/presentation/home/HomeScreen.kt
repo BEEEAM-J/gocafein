@@ -19,31 +19,34 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
-fun SearchRoute(
+fun HomeRoute(
+    navigateToDetail: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val uiState = viewModel.collectAsState().value
     viewModel.collectSideEffect { sideEffect ->
-
+        when (sideEffect) {
+            is HomeSideEffect.NavigateToDetail -> navigateToDetail(sideEffect.id)
+        }
     }
 
     LaunchedEffect(key1 = Unit) {
         viewModel.loadMovieList("star")
     }
 
-    SearchScreen(
+    HomeScreen(
         uiState = uiState,
         keyboardController = keyboardController,
         onSearchFieldChanged = viewModel::updateSearchValue,
         onEnterClicked = viewModel::loadMovieList,
-        /*onClickMovieItem =*/
+        onClickMovieItem = viewModel::navigateToDetail
     )
 }
 
 @Composable
-fun SearchScreen(
-    uiState: SearchState = SearchState(),
+fun HomeScreen(
+    uiState: HomeState = HomeState(),
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
     onSearchFieldChanged: (String) -> Unit = {},
     onEnterClicked: (String) -> Unit = {},
@@ -76,6 +79,6 @@ fun SearchScreen(
 
 @Preview(apiLevel = 33, showBackground = false)
 @Composable
-fun SearchPreview() {
-    SearchScreen()
+fun HomePreview() {
+    HomeScreen()
 }

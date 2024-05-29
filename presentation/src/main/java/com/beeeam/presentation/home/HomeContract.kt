@@ -2,9 +2,11 @@ package com.beeeam.presentation.home
 
 import com.beeeam.domain.model.MovieInfo
 
-data class SearchState(
+data class HomeState(
     val searchValue: String = "",
     val movieList: List<MovieInfo> = listOf()
 )
 
-sealed interface SearchSideEffect {}
+sealed interface HomeSideEffect {
+    data class NavigateToDetail(val id: String) : HomeSideEffect
+}

@@ -2,23 +2,21 @@ package com.beeeam.presentation.navigator
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.beeeam.presentation.home.SearchRoute
+import com.beeeam.presentation.detail.detailNavGraph
+import com.beeeam.presentation.home.HomeRoute.homeRoute
+import com.beeeam.presentation.home.homeNavGraph
 
 @Composable
-fun MainScreen() {
-    val navController = rememberNavController()
-
+fun MainScreen(
+    mainNavigator: MainNavigator = rememberMainNavigator()
+) {
     NavHost(
-        navController = navController,
-        startDestination = MainNavigator.Search.route
+        navController = mainNavigator.navController,
+        startDestination = homeRoute
     ) {
-        composable(MainNavigator.Search.route) {
-            SearchRoute()
-        }
-        composable(MainNavigator.Detail.route) {
-//            Detail()
-        }
+        homeNavGraph(navigator = mainNavigator)
+        detailNavGraph()
     }
+
 }
+
