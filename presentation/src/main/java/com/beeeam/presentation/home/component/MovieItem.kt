@@ -59,10 +59,10 @@ fun MovieItem(
             modifier = Modifier
                 .padding(bottom = 8.dp)
                 .align(alignment = Alignment.CenterHorizontally),
-            text = openDate,
-            color = Color.White,
+            text = "(${openDate})",
+            color = Color.LightGray,
             fontSize = 12.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.SemiBold,
         )
     }
 }
