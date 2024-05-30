@@ -5,15 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,37 +17,44 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.beeeam.presentation.R
+import com.beeeam.presentation.detail.component.BackBtn
 import com.beeeam.presentation.detail.component.RatingItem
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 fun DetailRoute(
     viewModel: DetailViewModel = hiltViewModel(),
+    popBackStack: () -> Unit = {},
 ) {
     val uiState = viewModel.collectAsState().value
+    viewModel.collectSideEffect { sideEffect ->
+        when (sideEffect) {
+            is DetailSideEffect.PopBackStack -> popBackStack()
+        }
+    }
 
     LaunchedEffect(key1 = Unit) { viewModel.loadMovieDetail() }
 
     DetailScreen(
         uiState = uiState,
+        popBackStack = viewModel::popBackStack
     )
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun DetailScreen(
-    uiState: DetailState = DetailState()
+    uiState: DetailState = DetailState(),
+    popBackStack: () -> Unit = {},
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -60,6 +63,14 @@ fun DetailScreen(
             .background(Color.Black)
             .padding(12.dp),
     ) {
+        Box(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            BackBtn(
+                modifier = Modifier.align(Alignment.CenterStart),
+                onClick = popBackStack,
+            )
+        }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -125,7 +136,7 @@ fun DetailScreen(
                     .background(Color.DarkGray)
                     .padding(18.dp),
                 text = uiState.movieDetail.Plot,
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Medium,
             )

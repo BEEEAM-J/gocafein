@@ -15,7 +15,7 @@ fun MainScreen(
         startDestination = homeRoute
     ) {
         homeNavGraph(navigator = mainNavigator)
-        detailNavGraph()
+        detailNavGraph(navigator = mainNavigator)
     }
 
 }
