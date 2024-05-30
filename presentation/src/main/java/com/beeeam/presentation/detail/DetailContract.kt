@@ -6,4 +6,6 @@ data class DetailState(
     val movieDetail: MovieDetailResponse = MovieDetailResponse(),
 )
 
-sealed interface DetailSideEffect {}
+sealed interface DetailSideEffect {
+    object PopBackStack: DetailSideEffect
+}

@@ -5,8 +5,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.beeeam.presentation.detail.DetailRoute.detail
+import com.beeeam.presentation.navigator.MainNavigator
 
 fun NavGraphBuilder.detailNavGraph(
+    navigator: MainNavigator,
 ) {
     composable(
         route = DetailRoute.detailRoute("{${detail}}"),
@@ -16,7 +18,9 @@ fun NavGraphBuilder.detailNavGraph(
             },
         ),
     ) {
-        DetailRoute()
+        DetailRoute(
+            popBackStack = navigator::popBackStack
+        )
     }
 }
 

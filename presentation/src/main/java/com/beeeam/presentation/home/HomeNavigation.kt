@@ -6,9 +6,11 @@ import com.beeeam.presentation.navigator.MainNavigator
 
 fun NavGraphBuilder.homeNavGraph(
     navigator: MainNavigator,
+    onShowToast: (String) -> Unit,
 ) {
     composable(HomeRoute.homeRoute) {
         HomeRoute(
+            onShowToast = onShowToast,
             navigateToDetail = navigator::navigateToDetail
         )
     }

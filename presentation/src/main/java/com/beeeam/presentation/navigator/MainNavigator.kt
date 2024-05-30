@@ -9,6 +9,10 @@ import com.beeeam.presentation.detail.DetailRoute.detailRoute
 class MainNavigator(
     val navController: NavHostController
 ) {
+    fun popBackStack() {
+        navController.popBackStack()
+    }
+
     fun navigateToDetail(id: String) {
         navController.navigate(detailRoute(id))
     }
