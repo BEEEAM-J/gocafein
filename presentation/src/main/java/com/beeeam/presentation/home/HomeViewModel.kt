@@ -22,7 +22,11 @@ class HomeViewModel @Inject constructor(
     fun loadMovieList(title: String) = intent {
         getMovieListUseCase(title, 1)
             .onSuccess {
-                reduce { state.copy(movieList = it.Search) }
+                when(it.Error) {
+                    "Too many results." -> postSideEffect(HomeSideEffect.ShowToastManyResult)
+                    "Movie not found!" -> postSideEffect(HomeSideEffect.ShowToastNotFound)
+                    else -> reduce { state.copy(movieList = it.Search) }
+                }
             }
             .onFailure {
 

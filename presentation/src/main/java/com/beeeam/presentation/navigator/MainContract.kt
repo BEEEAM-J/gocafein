@@ -1,7 +1,8 @@
 package com.beeeam.presentation.navigator
 
 data class MainState(
-    val sampleState: String = "",
+    val toastVisible: Boolean = false,
+    val toastMsg: String = "",
 )
 
 sealed interface MainSideEffect {}

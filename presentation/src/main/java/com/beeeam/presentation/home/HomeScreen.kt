@@ -23,6 +23,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 fun HomeRoute(
+    onShowToast: (String) -> Unit = {},
     navigateToDetail: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -31,6 +32,8 @@ fun HomeRoute(
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
             is HomeSideEffect.NavigateToDetail -> navigateToDetail(sideEffect.id)
+            is HomeSideEffect.ShowToastManyResult -> onShowToast("검색 결과가 너무 많습니다! 다른 검색어를 사용해주세요.")
+            is HomeSideEffect.ShowToastNotFound -> onShowToast("검색 결과가 없습니다!")
         }
     }
 
