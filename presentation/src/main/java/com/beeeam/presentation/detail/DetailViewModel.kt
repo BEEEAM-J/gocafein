@@ -22,9 +22,10 @@ class DetailViewModel @Inject constructor(
     private val movieId = savedStateHandle.get<String>(DetailRoute.detail)!!
 
     fun loadMovieDetail() = intent {
+        reduce { state.copy(isLoading = true) }
         getMovieDetailUseCase(movieId)
             .onSuccess {
-                reduce { state.copy(movieDetail = it) }
+                reduce { state.copy(movieDetail = it, isLoading = false) }
             }
             .onFailure {
 

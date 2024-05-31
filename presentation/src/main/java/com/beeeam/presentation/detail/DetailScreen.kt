@@ -25,6 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.beeeam.presentation.R
 import com.beeeam.presentation.detail.component.BackBtn
 import com.beeeam.presentation.detail.component.RatingItem
+import com.beeeam.presentation.loading.LoadingScreen
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import org.orbitmvi.orbit.compose.collectAsState
@@ -140,6 +141,9 @@ fun DetailScreen(
                 color = Color.White,
                 fontWeight = FontWeight.Medium,
             )
+        }
+        if (uiState.isLoading) {
+            LoadingScreen()
         }
     }
 }
