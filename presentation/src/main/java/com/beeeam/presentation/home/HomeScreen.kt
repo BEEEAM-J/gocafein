@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.beeeam.presentation.home.component.GocafeinSearchBar
 import com.beeeam.presentation.home.component.MovieItem
+import com.beeeam.presentation.loading.LoadingScreen
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -87,7 +88,11 @@ fun HomeScreen(
                 )
             }
         }
+        if(uiState.isLoading){
+            LoadingScreen()
+        }
     }
+
 }
 
 @Preview(apiLevel = 33, showBackground = false)

@@ -20,12 +20,13 @@ class HomeViewModel @Inject constructor(
     override val container: Container<HomeState, HomeSideEffect> = container(HomeState())
 
     fun loadMovieList(title: String) = intent {
+        reduce { state.copy(isLoading = true) }
         getMovieListUseCase(title, 1)
             .onSuccess {
                 when(it.Error) {
                     "Too many results." -> postSideEffect(HomeSideEffect.ShowToastManyResult)
                     "Movie not found!" -> postSideEffect(HomeSideEffect.ShowToastNotFound)
-                    else -> reduce { state.copy(movieList = it.Search) }
+                    else -> reduce { state.copy(movieList = it.Search, isLoading = false) }
                 }
             }
             .onFailure {
