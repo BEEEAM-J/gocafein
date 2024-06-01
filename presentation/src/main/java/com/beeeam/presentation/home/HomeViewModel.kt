@@ -1,5 +1,6 @@
 package com.beeeam.presentation.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.beeeam.domain.usecase.GetMovieListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,9 +20,9 @@ class HomeViewModel @Inject constructor(
 ) : ContainerHost<HomeState, HomeSideEffect>, ViewModel() {
     override val container: Container<HomeState, HomeSideEffect> = container(HomeState())
 
-    fun loadMovieList(title: String) = intent {
+    fun loadMovieList(title: String, page: Int) = intent {
         reduce { state.copy(isLoading = true) }
-        getMovieListUseCase(title, 1)
+        getMovieListUseCase(title, page)
             .onSuccess {
                 when(it.Error) {
                     "Too many results." -> postSideEffect(HomeSideEffect.ShowToastManyResult)
@@ -33,6 +34,13 @@ class HomeViewModel @Inject constructor(
 
             }
     }
+
+    fun updateMovieListPage(page: Int) = intent {
+        Log.d("input page", "$page")
+        reduce { state.copy(movieListPage = page + 1) }
+        Log.d("updated page", "${state.movieListPage}")
+    }
+
 
     @OptIn(OrbitExperimental::class)
     fun updateSearchValue(searchValue: String) = blockingIntent {

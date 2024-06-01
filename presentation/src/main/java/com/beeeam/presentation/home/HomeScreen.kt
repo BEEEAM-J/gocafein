@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -19,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.beeeam.presentation.home.component.GocafeinSearchBar
 import com.beeeam.presentation.home.component.MovieItem
 import com.beeeam.presentation.loading.LoadingScreen
+import com.beeeam.presentation.util.OnBottomReached
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -29,6 +32,7 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
+    val movieListState = rememberLazyGridState()
     val uiState = viewModel.collectAsState().value
     viewModel.collectSideEffect { sideEffect ->
         when (sideEffect) {
@@ -39,11 +43,16 @@ fun HomeRoute(
     }
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.loadMovieList("star")
+        viewModel.loadMovieList(uiState.searchValue, 1)
+    }
+
+    movieListState.OnBottomReached {
+        viewModel.updateMovieListPage(uiState.movieListPage)
     }
 
     HomeScreen(
         uiState = uiState,
+        movieListState = movieListState,
         keyboardController = keyboardController,
         onSearchFieldChanged = viewModel::updateSearchValue,
         onEnterClicked = viewModel::loadMovieList,
@@ -55,9 +64,10 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     uiState: HomeState = HomeState(),
+    movieListState: LazyGridState = rememberLazyGridState(),
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
     onSearchFieldChanged: (String) -> Unit = {},
-    onEnterClicked: (String) -> Unit = {},
+    onEnterClicked: (String, Int) -> Unit,
     onClickClearBtn: () -> Unit = {},
     onClickMovieItem: (String) -> Unit = {},
 ) {
@@ -77,6 +87,7 @@ fun HomeScreen(
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             modifier = Modifier.padding(vertical = 24.dp),
+            state = movieListState,
         ) {
             items(items = uiState.movieList) { content ->
                 MovieItem(
@@ -98,5 +109,5 @@ fun HomeScreen(
 @Preview(apiLevel = 33, showBackground = false)
 @Composable
 fun HomePreview() {
-    HomeScreen()
+//    HomeScreen()
 }
