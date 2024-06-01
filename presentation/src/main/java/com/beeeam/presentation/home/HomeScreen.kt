@@ -50,9 +50,7 @@ fun HomeRoute(
         movieListState = movieListState,
         keyboardController = keyboardController,
         onSearchFieldChanged = viewModel::updateSearchValue,
-        onEnterClicked = { search, _ ->
-            viewModel.search()
-        },
+        onEnterClicked = viewModel::search,
         onClickClearBtn = { viewModel.updateSearchValue("") },
         onClickMovieItem = viewModel::navigateToDetail
     )
@@ -64,7 +62,7 @@ fun HomeScreen(
     movieListState: LazyGridState = rememberLazyGridState(),
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
     onSearchFieldChanged: (String) -> Unit = {},
-    onEnterClicked: (String, Int) -> Unit,
+    onEnterClicked: () -> Unit = {},
     onClickClearBtn: () -> Unit = {},
     onClickMovieItem: (String) -> Unit = {},
 ) {
@@ -106,5 +104,5 @@ fun HomeScreen(
 @Preview(apiLevel = 33, showBackground = false)
 @Composable
 fun HomePreview() {
-//    HomeScreen()
+    HomeScreen()
 }
