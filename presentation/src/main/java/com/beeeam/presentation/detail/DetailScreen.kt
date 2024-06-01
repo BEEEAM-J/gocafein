@@ -77,7 +77,7 @@ fun DetailScreen(
                 .weight(1f)
         ) {
             GlideImage(
-                model = uiState.movieDetail.Poster,
+                model = uiState.movieDetail.poster,
                 contentDescription = "",
                 modifier = Modifier
                     .weight(1f)
@@ -91,24 +91,24 @@ fun DetailScreen(
                     .padding(start = 24.dp)
             ) {
                 Text(
-                    text = uiState.movieDetail.Title,
+                    text = uiState.movieDetail.title,
                     fontSize = 24.sp,
                     color = Color.White,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "(${uiState.movieDetail.Released})",
+                    text = "(${uiState.movieDetail.released})",
                     fontSize = 14.sp,
                     color = Color.LightGray,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = uiState.movieDetail.Runtime,
+                    text = uiState.movieDetail.runtime,
                     fontSize = 14.sp,
                     color = Color.LightGray,
                     fontWeight = FontWeight.Bold
                 )
-                uiState.movieDetail.Ratings.forEach {
+                uiState.movieDetail.ratings.forEach {
                     RatingItem(
                         rating = it
                     )
@@ -125,7 +125,7 @@ fun DetailScreen(
                     .clip(RoundedCornerShape(10.dp))
                     .background(Color.DarkGray)
                     .padding(18.dp),
-                text = uiState.movieDetail.Plot,
+                text = uiState.movieDetail.plot,
                 fontSize = 18.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Medium,

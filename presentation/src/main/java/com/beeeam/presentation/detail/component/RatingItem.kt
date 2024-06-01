@@ -25,16 +25,16 @@ fun RatingItem(
         verticalArrangement = Arrangement.Center
     ){
         Text(
-            text = rating.Source,
+            text = rating.source,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.White,
+            color = Color.Red,
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = rating.Value,
+            text = rating.value,
             fontSize = 16.sp,
-            color = Color.White,
+            color = Color.LightGray,
             fontWeight = FontWeight.Medium,
         )
     }

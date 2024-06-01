@@ -2,7 +2,7 @@ package com.beeeam.data.repositoryimpl
 
 import com.beeeam.data.api.GocafeinApi
 import com.beeeam.domain.model.HttpError
-import com.beeeam.domain.model.MovieSearchResponse
+import com.beeeam.domain.model.MovieSearch
 import com.beeeam.domain.repository.MovieSearchRepo
 import javax.inject.Inject
 
@@ -12,7 +12,7 @@ class MovieSearchRepoImpl @Inject constructor(
     override suspend fun getMovieList(
         title: String,
         page: Int)
-    : Result<MovieSearchResponse> {
+    : Result<MovieSearch> {
         return try {
             val response = api.getMovieList(
                 key = "954f1691",
@@ -22,7 +22,7 @@ class MovieSearchRepoImpl @Inject constructor(
             )
             when {
                 response.isSuccessful -> {
-                    Result.success(response.body()!!)
+                    Result.success(response.body()!!.toModel())
                 }
                 else -> {
                     Result.failure(HttpError(response.code(), response.errorBody()?.string() ?: ""))

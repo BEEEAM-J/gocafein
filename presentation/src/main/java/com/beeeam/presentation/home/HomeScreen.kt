@@ -84,12 +84,12 @@ fun HomeScreen(
             modifier = Modifier.padding(vertical = 24.dp),
             state = movieListState,
         ) {
-            items(items = uiState.movieList, key = { it.imdbID }) { content ->
+            items(items = uiState.movieList, key = { it.movieId }) { content ->
                 MovieItem(
-                    posterImage = content.Poster,
-                    title = content.Title,
-                    openDate = content.Year,
-                    id = content.imdbID,
+                    posterImage = content.poster,
+                    title = content.title,
+                    openDate = content.year,
+                    id = content.movieId,
                     onClick = onClickMovieItem,
                 )
             }

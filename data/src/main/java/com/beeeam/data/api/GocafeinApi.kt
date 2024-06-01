@@ -1,7 +1,7 @@
 package com.beeeam.data.api
 
-import com.beeeam.domain.model.MovieDetailResponse
-import com.beeeam.domain.model.MovieSearchResponse
+import com.beeeam.data.response.MovieDetailResponse
+import com.beeeam.data.response.MovieSearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
