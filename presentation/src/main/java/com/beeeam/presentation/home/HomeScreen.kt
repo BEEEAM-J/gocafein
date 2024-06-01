@@ -1,5 +1,6 @@
 package com.beeeam.presentation.home
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -22,6 +24,7 @@ import com.beeeam.presentation.home.component.GocafeinSearchBar
 import com.beeeam.presentation.home.component.MovieItem
 import com.beeeam.presentation.loading.LoadingScreen
 import com.beeeam.presentation.util.OnBottomReached
+import kotlinx.coroutines.flow.collectLatest
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -42,12 +45,8 @@ fun HomeRoute(
         }
     }
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.loadMovieList(uiState.searchValue, 1)
-    }
-
     movieListState.OnBottomReached {
-        viewModel.updateMovieListPage(uiState.movieListPage)
+        viewModel.loadMovieList(false)
     }
 
     HomeScreen(
@@ -55,7 +54,9 @@ fun HomeRoute(
         movieListState = movieListState,
         keyboardController = keyboardController,
         onSearchFieldChanged = viewModel::updateSearchValue,
-        onEnterClicked = viewModel::loadMovieList,
+        onEnterClicked = { search, _ ->
+            viewModel.search()
+        },
         onClickClearBtn = { viewModel.updateSearchValue("") },
         onClickMovieItem = viewModel::navigateToDetail
     )
@@ -89,7 +90,7 @@ fun HomeScreen(
             modifier = Modifier.padding(vertical = 24.dp),
             state = movieListState,
         ) {
-            items(items = uiState.movieList) { content ->
+            items(items = uiState.movieList, key = { it.imdbID }) { content ->
                 MovieItem(
                     posterImage = content.Poster,
                     title = content.Title,
@@ -99,11 +100,11 @@ fun HomeScreen(
                 )
             }
         }
-        if(uiState.isLoading){
-            LoadingScreen()
-        }
     }
 
+    if(uiState.isLoading){
+        LoadingScreen()
+    }
 }
 
 @Preview(apiLevel = 33, showBackground = false)

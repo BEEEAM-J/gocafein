@@ -19,15 +19,25 @@ class HomeViewModel @Inject constructor(
     private val getMovieListUseCase: GetMovieListUseCase,
 ) : ContainerHost<HomeState, HomeSideEffect>, ViewModel() {
     override val container: Container<HomeState, HomeSideEffect> = container(HomeState())
+    private var searchValue: String = "star"
 
-    fun loadMovieList(title: String, page: Int) = intent {
+    fun loadMovieList(needClear: Boolean) = intent {
         reduce { state.copy(isLoading = true) }
-        getMovieListUseCase(title, page)
+
+        if (needClear) reduce { state.copy(movieListPage = 1) }
+
+        getMovieListUseCase(searchValue, state.movieListPage)
             .onSuccess {
-                when(it.Error) {
+                when (it.Error) {
                     "Too many results." -> postSideEffect(HomeSideEffect.ShowToastManyResult)
                     "Movie not found!" -> postSideEffect(HomeSideEffect.ShowToastNotFound)
-                    else -> reduce { state.copy(movieList = it.Search, isLoading = false) }
+                    else -> reduce {
+                        state.copy(
+                            movieList = if (needClear) it.Search.distinctBy { it.imdbID } else (state.movieList + it.Search).distinctBy { it.imdbID },
+                            isLoading = false,
+                            movieListPage = state.movieListPage + 1
+                        )
+                    }
                 }
             }
             .onFailure {
@@ -35,10 +45,9 @@ class HomeViewModel @Inject constructor(
             }
     }
 
-    fun updateMovieListPage(page: Int) = intent {
-        Log.d("input page", "$page")
-        reduce { state.copy(movieListPage = page + 1) }
-        Log.d("updated page", "${state.movieListPage}")
+    fun search() = intent {
+        this@HomeViewModel.searchValue = state.searchValue
+        loadMovieList(true)
     }
 
 
@@ -47,5 +56,7 @@ class HomeViewModel @Inject constructor(
         reduce { state.copy(searchValue = searchValue) }
     }
 
-    fun navigateToDetail(id: String) = intent { postSideEffect(HomeSideEffect.NavigateToDetail(id = id)) }
+
+    fun navigateToDetail(id: String) =
+        intent { postSideEffect(HomeSideEffect.NavigateToDetail(id = id)) }
 }

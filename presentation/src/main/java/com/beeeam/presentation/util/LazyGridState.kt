@@ -17,7 +17,7 @@ fun LazyGridState.OnBottomReached(
 
     val shouldLoadMore = remember {
         derivedStateOf {
-            val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull() ?: return@derivedStateOf false
+            val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull() ?: return@derivedStateOf true
 
             lastVisibleItem.index >= layoutInfo.totalItemsCount - 1 - buffer
         }

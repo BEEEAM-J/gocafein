@@ -6,7 +6,7 @@ data class HomeState(
     val isLoading: Boolean = true,
     val searchValue: String = "star",
     val movieList: List<MovieInfo> = listOf(),
-    val movieListPage: Int = 0,
+    val movieListPage: Int = 1,
 )
 
 sealed interface HomeSideEffect {
