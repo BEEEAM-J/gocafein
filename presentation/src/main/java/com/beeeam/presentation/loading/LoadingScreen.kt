@@ -1,0 +1,24 @@
+package com.beeeam.presentation.loading
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.beeeam.presentation.loading.component.GocafeinProgressBar
+
+@Composable
+fun LoadingScreen(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize()) {
+        GocafeinProgressBar(
+            modifier = Modifier.align(Alignment.Center)
+        )
+    }
+}
+
+@Preview(apiLevel = 33)
+@Composable
+fun LoadingPreview() {
+    LoadingScreen()
+}

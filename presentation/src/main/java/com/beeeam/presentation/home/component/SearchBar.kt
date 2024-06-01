@@ -32,7 +32,7 @@ fun GocafeinSearchBar(
     value: String = "",
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
     onValueChanged: (String) -> Unit = {},
-    onEnterClicked: (String) -> Unit = {},
+    onEnterClicked: (String, Int) -> Unit,
     onClearBtnClicked: () -> Unit = {},
 ) {
     BasicTextField(
@@ -46,7 +46,7 @@ fun GocafeinSearchBar(
         keyboardActions = KeyboardActions(
             onSearch = {
                 if (!value.isNullOrEmpty()) {
-                    onEnterClicked(value)
+                    onEnterClicked(value, 1)
                     keyboardController?.hide()
                 }
             }
@@ -84,5 +84,5 @@ fun GocafeinSearchBar(
 @Preview(apiLevel = 33)
 @Composable
 fun SearchBarPreview() {
-    GocafeinSearchBar()
+//    GocafeinSearchBar()
 }

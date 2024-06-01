@@ -3,8 +3,10 @@ package com.beeeam.presentation.home
 import com.beeeam.domain.model.MovieInfo
 
 data class HomeState(
-    val searchValue: String = "",
-    val movieList: List<MovieInfo> = listOf()
+    val isLoading: Boolean = true,
+    val searchValue: String = "star",
+    val movieList: List<MovieInfo> = listOf(),
+    val movieListPage: Int = 1,
 )
 
 sealed interface HomeSideEffect {
