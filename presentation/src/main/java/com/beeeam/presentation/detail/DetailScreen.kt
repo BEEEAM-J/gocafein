@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.beeeam.presentation.R
 import com.beeeam.presentation.detail.component.BackBtn
 import com.beeeam.presentation.detail.component.RatingItem
 import com.beeeam.presentation.loading.LoadingScreen
@@ -109,21 +108,11 @@ fun DetailScreen(
                     color = Color.LightGray,
                     fontWeight = FontWeight.Bold
                 )
-                RatingItem(
-                    ic = R.drawable.ic_imdb_logo,
-                    rate = if (uiState.movieDetail.Ratings.isEmpty()) ""
-                            else uiState.movieDetail.Ratings[0].Value
-                )
-                RatingItem(
-                    ic = R.drawable.ic_rotten_tomatoes_logo,
-                    rate = if (uiState.movieDetail.Ratings.isEmpty()) ""
-                            else uiState.movieDetail.Ratings[1].Value
-                )
-                RatingItem(
-                    ic = R.drawable.ic_metacritic_logo,
-                    rate = if (uiState.movieDetail.Ratings.isEmpty()) ""
-                            else uiState.movieDetail.Ratings[2].Value
-                )
+                uiState.movieDetail.Ratings.forEach {
+                    RatingItem(
+                        rating = it
+                    )
+                }
             }
         }
         Box(
