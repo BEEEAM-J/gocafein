@@ -38,6 +38,7 @@ fun HomeRoute(
             is HomeSideEffect.NavigateToDetail -> navigateToDetail(sideEffect.id)
             is HomeSideEffect.ShowToastManyResult -> onShowToast("검색 결과가 너무 많습니다! 다른 검색어를 사용해주세요.")
             is HomeSideEffect.ShowToastNotFound -> onShowToast("검색 결과가 없습니다!")
+            is HomeSideEffect.ShowUnknownError -> onShowToast("알 수 없는 에러가 발생했습니다!\n네트워크 상태를 확인해주세요.")
         }
     }
 

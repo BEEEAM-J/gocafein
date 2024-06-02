@@ -16,7 +16,7 @@ data class MovieDetail(
     val rated: String = "",
     val ratings: List<Rating> = listOf(),
     val released: String = "",
-    val response: String = "",
+    val response: String? = null,
     val runtime: String = "",
     val title: String = "",
     val type: String = "",

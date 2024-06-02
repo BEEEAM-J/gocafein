@@ -3,16 +3,12 @@ package com.beeeam.data.response
 import com.google.gson.annotations.SerializedName
 
 data class MovieSearchResponse(
-    @SerializedName("Response") val response: String = "",
     @SerializedName("Search") val search: List<MovieInfo> = listOf(),
     val totalResults: String = "",
-    @SerializedName("Error") val error: String = "",
-) {
+): BaseResponse() {
     fun toModel()  = com.beeeam.domain.model.MovieSearch(
-        response = response,
         search = search.map { it.toModel() },
         totalResults = totalResults,
-        error = error,
     )
 }
 

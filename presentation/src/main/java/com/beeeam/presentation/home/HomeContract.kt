@@ -13,4 +13,5 @@ sealed interface HomeSideEffect {
     data class NavigateToDetail(val id: String) : HomeSideEffect
     object ShowToastManyResult : HomeSideEffect
     object ShowToastNotFound : HomeSideEffect
+    object ShowUnknownError : HomeSideEffect
 }

@@ -28,19 +28,19 @@ class HomeViewModel @Inject constructor(
 
         getMovieListUseCase(searchValue, state.movieListPage)
             .onSuccess {
-                when (it.error) {
-                    "Too many results." -> postSideEffect(HomeSideEffect.ShowToastManyResult)
-                    "Movie not found!" -> postSideEffect(HomeSideEffect.ShowToastNotFound)
-                    else -> reduce {
-                        state.copy(
-                            movieList = if (needClear) it.search.distinctBy { it.movieId } else (state.movieList + it.search).distinctBy { it.movieId },
-                            movieListPage = state.movieListPage + 1
-                        )
-                    }
+                reduce {
+                    state.copy(
+                        movieList = if (needClear) it.search.distinctBy { it.movieId } else (state.movieList + it.search).distinctBy { it.movieId },
+                        movieListPage = state.movieListPage + 1
+                    )
                 }
             }
             .onFailure {
-
+                when (it.message) {
+                    "Too many results." -> postSideEffect(HomeSideEffect.ShowToastManyResult)
+                    "Movie not found!" -> postSideEffect(HomeSideEffect.ShowToastNotFound)
+                    else -> postSideEffect(HomeSideEffect.ShowUnknownError)
+                }
             }
 
         reduce { state.copy(isLoading = false,) }
