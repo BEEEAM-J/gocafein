@@ -18,7 +18,6 @@ data class MovieDetailResponse(
     @SerializedName("Rated") val rated: String = "",
     @SerializedName("Ratings") val ratings: List<Rating> = listOf(),
     @SerializedName("Released") val released: String = "",
-    @SerializedName("Response") val response: String = "",
     @SerializedName("Runtime") val runtime: String = "",
     @SerializedName("Title") val title: String = "",
     @SerializedName("Type") val type: String = "",
@@ -28,7 +27,7 @@ data class MovieDetailResponse(
     val imdbID: String = "",
     val imdbRating: String = "",
     val imdbVotes: String = ""
-) {
+): BaseResponse() {
     fun toModel() = com.beeeam.domain.model.MovieDetail(
         actors = actors,
         awards = awards,
