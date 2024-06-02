@@ -21,11 +21,13 @@
 - **Image** : Glide
 
   # Architecture
-  MVI 패턴을 사용하여 상태를 기반으로 앱이 동작합니다.
+  ![MVI 흐름](https://github.com/BEEEAM-J/gocafein/assets/107917980/2f8ccfea-b1c4-4148-9cba-aeafdd73b33f)
+
+  MVI 패턴을 사용하여 **상태**를 기반으로 앱이 동작합니다.
 
   ## Module
-  ![조고카페인 모듈 구조](https://github.com/BEEEAM-J/gocafein/assets/107917980/1fc0f37a-343c-40f4-9339-8fdac52bb370)
-  
+  ![고카페인 모듈 구조](https://github.com/BEEEAM-J/gocafein/assets/107917980/2bae4e29-1203-46f4-a515-f4a845617d5f)
+
   클린 아키텍처에 따라서 data, domain, presentation 모듈로 구성했습니다.
 
   ### data
@@ -48,5 +50,11 @@
   | :--: | :--: |
   |![검색창 clear 버튼](https://github.com/BEEEAM-J/gocafein/assets/107917980/bd994c06-48ff-4525-b298-71728b7054d5)|![무한 스크롤](https://github.com/BEEEAM-J/gocafein/assets/107917980/53d5140b-6879-49af-a28b-26f30fdb3e3f)|
   |clear 버튼이 클릭 된 경우 검색 창 상태 값을 빈 값으로 변경하는 방식으로 구현했습니다.|LazyVerticalGrid가 최하단에 닿았을 때 추가 리스트를 요청하는 방식으로 구현했습니다.|
+  |**로딩 상태 표시**|**네트워크 연결 안된 경우 에러 처리**|
+  |![화면 이동 로딩 상태 표시](https://github.com/BEEEAM-J/gocafein/assets/107917980/f09d5cdb-d650-4051-8d89-d411051ab5ac)|![네트워크 연결 안된 경우 에러 처리](https://github.com/BEEEAM-J/gocafein/assets/107917980/d11cac07-e0af-44c2-ab6c-90a1d57a5707)|
+  |데이터를 로딩하는 것을 사용자에게 보여주기 위해서 로딩 상태를 표시하였습니다.|UnknownError를 핸들링하여 네트워크가 연결되지 않은 경우 사용자에게 이를 알려주도록 했습니다.|
+
+
+  
 
   
