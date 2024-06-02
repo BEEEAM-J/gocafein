@@ -1,10 +1,10 @@
 package com.beeeam.presentation.detail
 
-import com.beeeam.domain.model.MovieDetailResponse
+import com.beeeam.domain.model.MovieDetail
 
 data class DetailState(
     val isLoading: Boolean = true,
-    val movieDetail: MovieDetailResponse = MovieDetailResponse(),
+    val movieDetail: MovieDetail = MovieDetail(),
 )
 
 sealed interface DetailSideEffect {

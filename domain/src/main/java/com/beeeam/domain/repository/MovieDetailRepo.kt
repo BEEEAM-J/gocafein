@@ -1,7 +1,7 @@
 package com.beeeam.domain.repository
 
-import com.beeeam.domain.model.MovieDetailResponse
+import com.beeeam.domain.model.MovieDetail
 
 interface MovieDetailRepo {
-    suspend fun getMovieDetail(id: String): Result<MovieDetailResponse>
+    suspend fun getMovieDetail(id: String): Result<MovieDetail>
 }

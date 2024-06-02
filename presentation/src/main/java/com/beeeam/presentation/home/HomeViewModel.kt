@@ -28,13 +28,12 @@ class HomeViewModel @Inject constructor(
 
         getMovieListUseCase(searchValue, state.movieListPage)
             .onSuccess {
-                when (it.Error) {
+                when (it.error) {
                     "Too many results." -> postSideEffect(HomeSideEffect.ShowToastManyResult)
                     "Movie not found!" -> postSideEffect(HomeSideEffect.ShowToastNotFound)
                     else -> reduce {
                         state.copy(
-                            movieList = if (needClear) it.Search.distinctBy { it.imdbID } else (state.movieList + it.Search).distinctBy { it.imdbID },
-                            isLoading = false,
+                            movieList = if (needClear) it.search.distinctBy { it.movieId } else (state.movieList + it.search).distinctBy { it.movieId },
                             movieListPage = state.movieListPage + 1
                         )
                     }
@@ -43,6 +42,8 @@ class HomeViewModel @Inject constructor(
             .onFailure {
 
             }
+
+        reduce { state.copy(isLoading = false,) }
     }
 
     fun search() = intent {

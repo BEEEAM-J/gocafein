@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.beeeam.presentation.R
 import com.beeeam.presentation.detail.component.BackBtn
 import com.beeeam.presentation.detail.component.RatingItem
 import com.beeeam.presentation.loading.LoadingScreen
@@ -78,7 +77,7 @@ fun DetailScreen(
                 .weight(1f)
         ) {
             GlideImage(
-                model = uiState.movieDetail.Poster,
+                model = uiState.movieDetail.poster,
                 contentDescription = "",
                 modifier = Modifier
                     .weight(1f)
@@ -92,38 +91,28 @@ fun DetailScreen(
                     .padding(start = 24.dp)
             ) {
                 Text(
-                    text = uiState.movieDetail.Title,
+                    text = uiState.movieDetail.title,
                     fontSize = 24.sp,
                     color = Color.White,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "(${uiState.movieDetail.Released})",
+                    text = "(${uiState.movieDetail.released})",
                     fontSize = 14.sp,
                     color = Color.LightGray,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = uiState.movieDetail.Runtime,
+                    text = uiState.movieDetail.runtime,
                     fontSize = 14.sp,
                     color = Color.LightGray,
                     fontWeight = FontWeight.Bold
                 )
-                RatingItem(
-                    ic = R.drawable.ic_imdb_logo,
-                    rate = if (uiState.movieDetail.Ratings.isEmpty()) ""
-                            else uiState.movieDetail.Ratings[0].Value
-                )
-                RatingItem(
-                    ic = R.drawable.ic_rotten_tomatoes_logo,
-                    rate = if (uiState.movieDetail.Ratings.isEmpty()) ""
-                            else uiState.movieDetail.Ratings[1].Value
-                )
-                RatingItem(
-                    ic = R.drawable.ic_metacritic_logo,
-                    rate = if (uiState.movieDetail.Ratings.isEmpty()) ""
-                            else uiState.movieDetail.Ratings[2].Value
-                )
+                uiState.movieDetail.ratings.forEach {
+                    RatingItem(
+                        rating = it
+                    )
+                }
             }
         }
         Box(
@@ -136,7 +125,7 @@ fun DetailScreen(
                     .clip(RoundedCornerShape(10.dp))
                     .background(Color.DarkGray)
                     .padding(18.dp),
-                text = uiState.movieDetail.Plot,
+                text = uiState.movieDetail.plot,
                 fontSize = 18.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Medium,

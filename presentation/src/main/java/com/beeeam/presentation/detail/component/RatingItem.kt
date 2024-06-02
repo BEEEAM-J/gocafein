@@ -1,51 +1,47 @@
 package com.beeeam.presentation.detail.component
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.beeeam.domain.model.Rating
+
 @Composable
 fun RatingItem(
     modifier: Modifier = Modifier,
-    ic: Int,
-    rate: String,
+    rating: Rating
 ) {
-    Row(
+    Column(
         modifier = modifier.padding(vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalArrangement = Arrangement.Center
     ){
-        Image(
-            modifier = Modifier
-                .weight(0.3f)
-                .size(32.dp),
-            painter = painterResource(id = ic),
-            contentDescription = "",
+        Text(
+            text = rating.source,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Red,
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            modifier = Modifier.weight(0.7f),
-            text = rate,
+            text = rating.value,
             fontSize = 16.sp,
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
+            color = Color.LightGray,
+            fontWeight = FontWeight.Medium,
         )
     }
 }
 
-@Preview(apiLevel = 33)
+@Preview(apiLevel = 33, showSystemUi = true)
 @Composable
 fun RatingItemPreview() {
-    RatingItem(ic = 0, rate = "")
+    RatingItem(rating = Rating("rotten tomato", "40%"))
 }

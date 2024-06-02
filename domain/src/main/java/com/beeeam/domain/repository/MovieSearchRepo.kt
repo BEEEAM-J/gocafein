@@ -1,10 +1,10 @@
 package com.beeeam.domain.repository
 
-import com.beeeam.domain.model.MovieSearchResponse
+import com.beeeam.domain.model.MovieSearch
 
 interface MovieSearchRepo {
     suspend fun getMovieList(
         title: String,
         page: Int,
-    ): Result<MovieSearchResponse>
+    ): Result<MovieSearch>
 }
